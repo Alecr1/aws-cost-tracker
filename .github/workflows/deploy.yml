@@ -1,5 +1,10 @@
 name: Deploy AWS Cost Dashboard
 
+env:
+  AWS_PROFILE: alecr1
+  AWS_REGION: us-east-2
+
+
 on:
   push:
     branches:
