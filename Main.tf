@@ -5,16 +5,8 @@ provider "aws" {
 } 
 
 resource "aws_s3_bucket" "my-aleccost-dash" {
-  bucket = "aleccost-dashboard"
-  acl   = "private"
-
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
-    }
-  }
+  bucket = "aleccost-dashboard-unique-xyz123"
+  acl = "private"
 }
 
 
@@ -80,12 +72,21 @@ resource "aws_cloudwatch_dashboard" "cost_dashboard" {
           metrics = [
             [ "AWS/Billing", "EstimatedCharges", "Currency", "USD" ]
           ],
+          region = "us-east-2",
+          title = "AWS Estimated Charges",
           period = 21600,
           stat = "Maximum",
-          title = "AWS Estimated Charges"
+          annotations = {
+            horizontal = [
+              {
+                label = "Budget Threshold",
+                value = 10
+              }
+            ]
+          }
         }
       }
     ]
   })
 }
-# Try  to get git workin
+#add lamada?
